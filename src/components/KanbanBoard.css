@@ -1,0 +1,105 @@
+/* Kanban Board Main Layout */
+.kanban-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Kanban Header */
+  .kanban-header h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Filter Buttons (Group by Status, User, Priority) */
+  .kanban-filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .kanban-filters button {
+    padding: 10px 20px;
+    background-color: #5c6bc0; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .kanban-filters button:hover {
+    background-color: #3949ab;
+  }
+  
+  /* Columns Styling */
+  .kanban-columns {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  .kanban-column {
+    background-color: #eceff1;
+    padding: 15px;
+    width: 30%;
+    border-radius: 8px;
+  }
+  
+  .kanban-column h2 {
+    text-align: center;
+    color: #5c6bc0;
+    font-size: 22px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #5c6bc0;
+    padding-bottom: 10px;
+  }
+  
+  /* Ticket Card Styling */
+  .kanban-ticket {
+    background-color: #eceff1;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .kanban-ticket h3 {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .kanban-ticket p {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .kanban-ticket .priority {
+    display: inline-block;
+    background-color: #ffb300;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+  /* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .kanban-columns {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .kanban-column {
+      width: 90%;
+      margin-bottom: 20px;
+    }
+  }
+  
