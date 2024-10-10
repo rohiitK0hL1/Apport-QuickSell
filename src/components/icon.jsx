@@ -1,4 +1,4 @@
-import "./UserIcon.css";
+import "./icon.css";
 import { FaCircle } from "react-icons/fa6";
 
 const UserIcon = ({ intials, available, bgColor }) => {
@@ -9,11 +9,9 @@ const UserIcon = ({ intials, available, bgColor }) => {
 
   return (
     <div className="user">
-      {/* Displaying user initials with dynamic background color */}
       <div className="user_icon" style={{ backgroundColor: bgColor }}>
         {intials}
       </div>
-      {/* Status dot with dynamic color depending on availability */}
       <div className="dot" style={dotStyle}>
         <FaCircle />
       </div>

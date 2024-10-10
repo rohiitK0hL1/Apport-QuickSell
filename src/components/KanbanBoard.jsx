@@ -1,25 +1,24 @@
-import "./Board.css";
+import "./KanbanBoard.css";
 import { IoMdAdd } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
-import Card from "../Card/Card";
-import UserIcon from "../UserIcon/UserIcon";
+import Card from "./Card";
+import UserIcon from "./icon";
 import {
   generateIntials,
   getRandomColor,
   priorities,
   statusIcons,
-} from "../../utils/data";
+} from "../ContentData/content";
 
 const Board = (props) => {
   const { tickets, users, group, level, userId, order, data } = props;
 
-  let ticketLimit = tickets.length; // Limit on tickets to introduce subtle randomness
-  let ticketList = [...tickets]; // Cloning the ticket list
+  let ticketLimit = tickets.length; 
+  let ticketList = [...tickets]; 
 
   let filteredTickets = [];
 
   if (group === "status") {
-    // Filtering tickets based on status, case-insensitive comparison
     filteredTickets = ticketList.filter(
       (ticket) => ticket.status.toLowerCase() === data.title.toLowerCase()
     );
@@ -28,25 +27,20 @@ const Board = (props) => {
   } else {
     filteredTickets = ticketList.filter((ticket) => ticket.userId === userId);
   }
-
-  // Sorting tickets based on priority or title
   if (order === "priority") {
     filteredTickets = filteredTickets
       .slice(0, ticketLimit)
-      .sort((a, b) => b.priority - a.priority); // Limiting sorted tickets
+      .sort((a, b) => b.priority - a.priority); 
   } else {
     filteredTickets = filteredTickets
       .slice(0, ticketLimit)
       .sort((a, b) => a.title.localeCompare(b.title));
   }
-
-  // Rendering board for 'user' group
   if (group === "user") {
     return (
       <div className="board">
         <div className="board_top">
           <div className="board_top_name">
-            {/* Displaying user initials with a random background color */}
             <span>
               <UserIcon
                 intials={generateIntials(data?.name)}
@@ -64,7 +58,6 @@ const Board = (props) => {
         </div>
         <div className="board_container" style={{}}>
           {
-            // Rendering each ticket in the list
             filteredTickets.map((ticket) => (
               <Card
                 ticket={ticket}
@@ -73,7 +66,7 @@ const Board = (props) => {
                 group={group}
                 statusIcon={statusIcons[ticket?.status.toLowerCase()]?.icon}
                 statusColor={statusIcons[ticket?.status.toLowerCase()]?.color}
-                bgColor={getRandomColor()} // Random background color
+                bgColor={getRandomColor()} 
               />
             ))
           }
@@ -81,8 +74,6 @@ const Board = (props) => {
       </div>
     );
   }
-
-  // Rendering board for 'priority' group
   if (group === "priority") {
     return (
       <div className="board">
@@ -99,7 +90,7 @@ const Board = (props) => {
         </div>
         <div className="board_container">
           {filteredTickets.map((ticket) => {
-            const assignedUser = users?.find((u) => u.id === ticket.userId); // Minor rename
+            const assignedUser = users?.find((u) => u.id === ticket.userId); 
             return (
               <Card
                 ticket={ticket}
@@ -117,8 +108,6 @@ const Board = (props) => {
       </div>
     );
   }
-
-  // Default rendering when group is neither 'user' nor 'priority'
   return (
     <div className="board">
       <div className="board_top">
@@ -134,7 +123,7 @@ const Board = (props) => {
       </div>
       <div className="board_container">
         {filteredTickets.map((ticket) => {
-          const ticketOwner = users?.find((u) => u.id === ticket.userId); // Renamed variable
+          const ticketOwner = users?.find((u) => u.id === ticket.userId); 
           return (
             <Card
               ticket={ticket}

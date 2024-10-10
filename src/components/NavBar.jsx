@@ -1,16 +1,13 @@
-import "./Navbar.css";
+import "./NavBar.css";
 import { MdOutlineTune } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-// Grouping options
 const groupOptions = [
   { label: "Status", value: "status" },
   { label: "User", value: "user" },
   { label: "Priority", value: "priority" },
 ];
-
-// Ordering options
 const orderOptions = [
   { label: "Priority", value: "priority" },
   { label: "Title", value: "title" },
@@ -20,24 +17,31 @@ const Navbar = ({ group, order, onGroupchange, onOrderChange }) => {
   const [isExpanded, toggleExpand] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(group);
   const [selectedOrder, setSelectedOrder] = useState(order);
-
-  // Handle change in grouping
+  const dropdownRef = useRef(null);
   const handleGroupChange = (e) => {
     const newGroup = e.target.value;
     setSelectedGroup(newGroup);
-    onGroupchange(newGroup); // Updated with new group value
+    onGroupchange(newGroup); 
   };
-
-  // Handle change in ordering
   const handleOrderChange = (e) => {
     const newOrder = e.target.value;
     setSelectedOrder(newOrder);
-    onOrderChange(newOrder); // Updated with new order value
+    onOrderChange(newOrder); 
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        toggleExpand(false); 
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="nav">
-      {/* Expand/Collapse button */}
       <div
         className="expand_btn"
         onClick={() => {
@@ -48,10 +52,8 @@ const Navbar = ({ group, order, onGroupchange, onOrderChange }) => {
         <span>Display</span>
         <FaAngleDown />
       </div>
-
-      {/* Dropdown for grouping and ordering */}
       {isExpanded && (
-        <div className="dropdown">
+        <div className="dropdown" ref={dropdownRef}>
           <div className="display">
             <p>Grouping</p>
             <select
@@ -63,7 +65,7 @@ const Navbar = ({ group, order, onGroupchange, onOrderChange }) => {
               {groupOptions.map((opt, idx) => (
                 <option key={idx} value={opt.value}>
                   {opt.label}
-                </option> // Renamed 'i' to 'idx'
+                </option>
               ))}
             </select>
           </div>
@@ -78,7 +80,7 @@ const Navbar = ({ group, order, onGroupchange, onOrderChange }) => {
               {orderOptions.map((opt, idx) => (
                 <option key={idx} value={opt.value}>
                   {opt.label}
-                </option> // Renamed 'i' to 'idx'
+                </option>
               ))}
             </select>
           </div>

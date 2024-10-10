@@ -1,40 +1,27 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import Board from "./components/Board/Board";
-import { status, priorities } from "./utils/data";
+import Navbar from "./components/NavBar";
+import Board from "./components/KanbanBoard";
+import { status, priorities } from "./ContentData/content";
 
 function App() {
-  // State for tickets and users data
   const [tickets, setTickets] = useState([]);
   const [users, setUsers] = useState([]);
-
-  // Default values for group and order from local storage
   const defaultGroup = localStorage.getItem("selectedGroup");
   const defaultOrder = localStorage.getItem("selectedOrder");
-
-  // State for group and order
   const [group, setGroup] = useState(defaultGroup || "status");
   const [order, setOrder] = useState(defaultOrder || "priority");
-
-  // Handle change in grouping
   const handleGroupChange = (groupSelected) => {
     setGroup(groupSelected);
     localStorage.setItem("selectedGroup", groupSelected);
   };
-
-  // Handle change in ordering
   const handleOrderChange = (orderSelected) => {
     setOrder(orderSelected);
     localStorage.setItem("selectedOrder", orderSelected);
   };
-
-  // Fetching data when the component mounts
   useEffect(() => {
     fetchData();
   }, []);
-
-  // Fetch function to get ticket and user data
   const fetchData = async () => {
     try {
       const res = await fetch(
@@ -47,21 +34,16 @@ function App() {
       console.error("Error fetching data:", error);
     }
   };
-
   return (
     <div className="App scroll-container">
-      {/* Navbar component to handle group and order selection */}
       <Navbar
         group={group}
         order={order}
         onGroupchange={handleGroupChange}
         onOrderChange={handleOrderChange}
       />
-
-      {/* Boards container */}
       <div className="boards_container">
         <div className="app_boards">
-          {/* Display boards based on group type */}
           {group === "status" &&
             status.map((opt, id) => (
               <Board

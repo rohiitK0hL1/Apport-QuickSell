@@ -8,8 +8,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f4f5f8;
-  overflow-y: hidden;
-  font-size: 12px;
+  overflow-y: auto;
+  /* ::-webkit-scrollbar {display:none;}; */
+  overflow-x: hidden;
+  font-size: 11px;
 }
 
 code {
